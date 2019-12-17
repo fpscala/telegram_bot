@@ -1,8 +1,8 @@
+@import org.webjars.play.WebJarsUtil
+@(message: String)(implicit webJarsUtil: WebJarsUtil)
+@main("Welcome to Play", webJarsUtil) {
 
-@(message: String)
-@main("Welcome to Play") {
-
-  <h1 style="text-align: center; font-size: 15em;">Welcome to <br><span style="color: #6dae38">Play 2.0</span></h1>
+  <h1 class="text-danger" style="text-align: center; font-size: 15em;">Welcome to <br><span style="color: #6dae38">Play 2.0</span></h1>
 
 
 }
