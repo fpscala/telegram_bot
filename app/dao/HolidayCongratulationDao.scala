@@ -25,7 +25,7 @@ trait HolidayCongratulationComponent { self: HasDatabaseConfigProvider[JdbcProfi
 
 @ImplementedBy(classOf[HolidayCongratulationDaoImpl])
 trait HolidayCongratulationDao {
-  def addStudent(studentData: Student): Future[Int]
+  def addHolidayCongratulation(holidayCongratulationData: HolidayCongratulation): Future[Int]
 }
 
 @Singleton
