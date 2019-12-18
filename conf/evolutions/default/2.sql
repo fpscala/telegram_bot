@@ -1,5 +1,5 @@
 # --- !Ups
-CREATE TABLE "Student" (
+CREATE TABLE "Holiday" (
   "id" SERIAL NOT NULL PRIMARY KEY,
   "name" VARCHAR NOT NULL,
   "holidayDate" DATE NOT NULL,
