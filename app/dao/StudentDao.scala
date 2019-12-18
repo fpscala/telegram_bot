@@ -1,7 +1,6 @@
 package dao
 
 import java.util.Date
-
 import com.google.inject.ImplementedBy
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject.{Inject, Singleton}

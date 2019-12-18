@@ -20,17 +20,14 @@ class StudentManager @Inject()(val environment: Environment,
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)
 
   def receive = {
-    case AddStudent(student) =>
-      addStudent(student).pipeTo(sender())
+    case AddStudent(student) => addStudent(student).pipeTo(sender())
 
     case _ => log.info(s"received unknown message")
 
   }
 
   private def addStudent(studentData: Student) = {
-    studentDao.addStudent(studentData).map { data =>
-      data
-    }
+    studentDao.addStudent(studentData)
   }
 
 }
