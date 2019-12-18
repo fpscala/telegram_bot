@@ -2,7 +2,7 @@ package protocols
 
 import play.api.libs.json.{Json, OFormat}
 
-object HolidayCongratulatinProtocol {
+object HolidayCongratulationProtocol {
 
   case class AddHolidayCongratulation(student: HolidayCongratulation)
 
