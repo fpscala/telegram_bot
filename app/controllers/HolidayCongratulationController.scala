@@ -28,7 +28,7 @@ class HolidayCongratulationController @Inject()(val controllerComponents: Contro
   }
 
   def holidayCongratulationPost = {
-    logger.warn(s"Keldi.........")
+//    logger.warn(s"Keldi.........")
     (holidayCongratulationManager ? AddHolidayCongratulation(HolidayCongratulation(None, "Yangi yilingiz bilan!", 123546))).mapTo[Int].map { pr =>
       Ok(Json.toJson(s"ajji: $pr"))
     }

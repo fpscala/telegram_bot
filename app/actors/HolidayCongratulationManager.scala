@@ -6,8 +6,7 @@ import akka.util.Timeout
 import dao.HolidayCongratulationDao
 import javax.inject.Inject
 import play.api.Environment
-import protocols.HolidayCongratulationProtocol.{AddHolidayCongratulation, HolidayCongratulation}
-
+import protocols.HolidayCongratulationProtocol._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
 
@@ -21,6 +20,7 @@ class HolidayCongratulationManager @Inject()(val environment: Environment,
 
   def receive = {
     case AddHolidayCongratulation(holidayCongratulation) =>
+//      log.warning(s"Menejerga keldi.........")
       addHolidayCongratulation(holidayCongratulation).pipeTo(sender())
 
     case _ => log.info(s"received unknown message")
@@ -28,6 +28,7 @@ class HolidayCongratulationManager @Inject()(val environment: Environment,
   }
 
   private def addHolidayCongratulation(holidayCongratulation: HolidayCongratulation) = {
+//    log.warning(s"Menejerga keldi...............")
     holidayCongratulationDao.addHolidayCongratulation(holidayCongratulation)
   }
 

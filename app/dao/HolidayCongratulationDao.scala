@@ -5,7 +5,6 @@ import com.typesafe.scalalogging.LazyLogging
 import javax.inject.{Inject, Singleton}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import protocols.HolidayCongratulationProtocol.HolidayCongratulation
-import protocols.StudentProtocol.Student
 import slick.jdbc.JdbcProfile
 import utils.Date2SqlDate
 import scala.concurrent.Future
@@ -14,7 +13,7 @@ trait HolidayCongratulationComponent { self: HasDatabaseConfigProvider[JdbcProfi
 
   import utils.PostgresDriver.api._
 
-  class HolidayCongratulationTable(tag: Tag) extends Table[HolidayCongratulation](tag, "HolidayCongratulations") with Date2SqlDate  {
+  class HolidayCongratulationTable(tag: Tag) extends Table[HolidayCongratulation](tag, "HolidaysCongratulations") with Date2SqlDate  {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def wishes = column[String]("wishes")
     def holidayId = column[Int]("holidayId")
@@ -41,6 +40,7 @@ class HolidayCongratulationDaoImpl @Inject()(protected val dbConfigProvider: Dat
 
   override def addHolidayCongratulation(holidayCongratulationData: HolidayCongratulation): Future[Int] = {
     db.run {
+//      logger.warn(s"Daoga keldi.....................")
       (holidayCongratulation returning holidayCongratulation.map(_.id)) += holidayCongratulationData
     }
   }
