@@ -15,7 +15,7 @@ $ ->
     firstName: ''
     lastName: ''
     birthday: ''
-    telegramId: 0
+    telegramId: ''
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
@@ -29,20 +29,6 @@ $ ->
       toastr.error('Something went wrong! Please try again.')
 
   vm.onSubmit = ->
-    toastr.clear()
-    #    if (!vm.firstName())
-    #      toastr.error("Please enter teacher's full name")
-    #      return no
-    #    else if (vm.fullName().length < 6 and vm.fullName().indexOf('-') isnt 0)
-    #      toastr.error("The teacher's full name must consist of 6 letters")
-    #      return no
-    #    else if (!vm.selectedSubject())
-    #      toastr.error("Please enter teacher's  subject")
-    #      return no
-    #    else if (!vm.selectedDepartment())
-    #      toastr.error("Please enter teacher's department")
-    #      return no
-
     data =
       firstName: vm.firstName()
       lastName: vm.lastName()
@@ -58,6 +44,15 @@ $ ->
     .fail handleError
     .done (response) ->
       toastr.success(response)
+      vm.firstName undefined
+      vm.lastName undefined
+      vm.birthday undefined
+      vm.telegramId undefined
+      $('.close').click() ->
+        $(this).parent().hide()
+
+
+
   #
   #  getTeachers = ->
   #    $.ajax
