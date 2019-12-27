@@ -10,6 +10,7 @@ import dao.StudentDao
 import javax.inject.Inject
 import play.api.Environment
 import protocols.StudentProtocol.{AddStudent, FindBirthday, Student}
+import telegrambot.SendToServer
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
@@ -44,16 +45,16 @@ class StudentManager @Inject()(val environment: Environment,
   }
 
   private def findBirthday(date: Date) = {
-    studentDao.getAllStudentBirthDay.mapTo[Seq[Date]].map{ dateList =>
+    studentDao.getAllStudentBirthDay.mapTo[Seq[Date]].foreach { dateList =>
       dateList.foreach{ dateSql =>
         if (convertToStrDate(dateSql) == convertToStrDate(date)) {
-          studentDao.findBirthday(dateSql).mapTo[Seq[Student]].map{ a =>
-//            println(s"a: $a")
-            a
+          studentDao.findBirthday(dateSql).mapTo[Seq[Student]].map{ list =>
+            list.foreach{ student =>
+              SendToServer.checkingResponse(student)
+            }
           }
         }
       }
-      dateList
     }
   }
 
