@@ -12,7 +12,7 @@ object StudentProtocol {
                      first_name: String,
                      last_name: String,
                      birthDay: Date,
-                     telegram_id: Int
+                     telegram_id: Long
                     )
 
   implicit val studentFormat: OFormat[Student] = Json.format[Student]

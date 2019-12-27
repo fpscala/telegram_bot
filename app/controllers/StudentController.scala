@@ -12,10 +12,9 @@ import org.webjars.play.WebJarsUtil
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import protocols.StudentProtocol.{AddStudent, Student}
-import views.html._
 
-import scala.concurrent.duration.DurationInt
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.DurationInt
 
 @Singleton
 class StudentController @Inject()(val controllerComponents: ControllerComponents,
@@ -32,11 +31,28 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     Ok(views.html.student(""))
   }
 
+  def students: Action[AnyContent] = Action {
+    Ok(views.html.student(""))
+  }
+
+  def addStudent: Action[JsValue] = Action.async(parse.json){ implicit request => {
+    val firstName = (request.body \ "firstName").as[String]
+    val lastName = (request.body \ "lastName").as[String]
+    val birthday = (request.body \ "birthday").as[Date]
+    val telegramId = (request.body \ "telegramId").as[Long]
+    (studentManager ? AddStudent(Student(None, firstName, lastName, birthday, telegramId))).mapTo[Either[String, String]].map {
+      case Right(str) =>
+        Ok(Json.toJson(str))
+      case Left(err) =>
+        Ok(err)
+    }
+  }
+  }
+
   def studentPost = {
     logger.warn(s"Keldi.........")
     (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>
       Ok(Json.toJson(s"ajji: $pr"))
     }
   }
-
 }

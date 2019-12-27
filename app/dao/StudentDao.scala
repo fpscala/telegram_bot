@@ -22,7 +22,7 @@ trait StudentComponent { self: HasDatabaseConfigProvider[JdbcProfile] =>
     def firstName = column[String]("firstName")
     def lastName = column[String]("lastName")
     def birthday = column[Date]("birthday")
-    def telegramId = column[Int]("telegramId")
+    def telegramId = column[Long]("telegramId")
 
     def * = (id.?, firstName, lastName, birthday,telegramId) <> (Student.tupled, Student.unapply _)
   }

@@ -1,4 +1,7 @@
 
+GET     /add-student                controllers.StudentController.addStudent
+
 GET     /                           controllers.StudentController.index
+GET     /students                   controllers.StudentController.students
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-->      /webjars             webjars.Routes
+->      /webjars                    webjars.Routes
