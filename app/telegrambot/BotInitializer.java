@@ -25,20 +25,13 @@ public class BotInitializer extends TelegramLongPollingBot {
     System.out.println(data);
 
 
-    if (update.hasMessage() && update.getMessage().hasText()) {
-      update.getUpdateId();
-      SendMessage message = new SendMessage().setParseMode("HTML").setChatId("-214767533");
-      chat_id = update.getMessage().getChatId();
-      System.out.println(chat_id);
-      String message_text = update.getMessage().getText();
-      Long id = update.getMessage().getChat().getId();
+    SendMessage message = new SendMessage().setParseMode("HTML").setChatId("-214767533");
 
-      try {
-        message.setText("123");
-        execute(message); // Sending our message object to user
-      } catch (TelegramApiException e) {
-        e.printStackTrace();
-      }
+    try {
+      message.setText("123");
+      execute(message); // Sending our message object to user
+    } catch (TelegramApiException e) {
+      e.printStackTrace();
     }
   }
 
@@ -52,7 +45,15 @@ public class BotInitializer extends TelegramLongPollingBot {
     return new BotInitializer(botUserName, botToken, httpLink).botToken;
   }
 
-  public String massege(String massage) {
-    return massage;
+  public String massege(String congratulation) {
+    SendMessage message = new SendMessage().setParseMode("HTML").setChatId("-214767533");
+
+    try {
+      message.setText(congratulation);
+      execute(message); // Sending our message object to user
+    } catch (TelegramApiException e) {
+      e.printStackTrace();
+    }
+    return "run";
   }
 }
