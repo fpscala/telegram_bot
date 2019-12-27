@@ -8,7 +8,7 @@ import javax.inject.Inject
 import play.api.Environment
 import protocols.StudentProtocol.{AddStudent, Student}
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.DurationInt
 
 class StudentManager @Inject()(val environment: Environment,
@@ -27,10 +27,9 @@ class StudentManager @Inject()(val environment: Environment,
 
   }
 
-  private def addStudent(studentData: Student) = {
-    studentDao.addStudent(studentData).map { data =>
-      data
-    }
+  private def addStudent(studentData: Student): Future[Int] = {
+    studentDao.addStudent(studentData)
+
   }
 
 }

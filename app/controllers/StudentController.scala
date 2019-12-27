@@ -27,7 +27,6 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)
 
   def index: Action[AnyContent] = Action {
-    studentPost
     Ok(views.html.student(""))
   }
 
@@ -39,20 +38,17 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     val firstName = (request.body \ "firstName").as[String]
     val lastName = (request.body \ "lastName").as[String]
     val birthday = (request.body \ "birthday").as[Date]
-    val telegramId = (request.body \ "telegramId").as[Long]
-    (studentManager ? AddStudent(Student(None, firstName, lastName, birthday, telegramId))).mapTo[Either[String, String]].map {
-      case Right(str) =>
-        Ok(Json.toJson(str))
-      case Left(err) =>
-        Ok(err)
+    val telegramId = (request.body \ "telegramId").as[Int]
+    (studentManager ? AddStudent(Student(None, firstName, lastName, birthday, telegramId))).mapTo[Int].map { id =>
+      Ok(Json.toJson(id))
     }
   }
   }
-
-  def studentPost = {
-    logger.warn(s"Keldi.........")
-    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>
-      Ok(Json.toJson(s"ajji: $pr"))
-    }
-  }
+//
+//  def studentPost = {
+//    logger.warn(s"Keldi.........")
+//    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>
+//      Ok(Json.toJson(s"ajji: $pr"))
+//    }
+//  }
 }

@@ -73,24 +73,24 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" class="form-control" data-bind="value: vm.firstName" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" class="form-control" data-bind="value: vm.lastName" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Birthday</label>
-                                    <input type="date" class="form-control" required>
+                                    <input type="date" class="form-control" data-bind="value: vm.birthday" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Telegram ID</label>
-                                    <input type="number" class="form-control" required>
+                                    <input type="text" class="form-control" data-bind="value: vm.telegramId" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Add">
+                                <button type="submit" class="btn btn-success" data-bind="click: vm.onSubmit">submit</button>
                             </div>
                         </form>
                     </div>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-info" data-bind="click: vm.onSubmit value="Save">
+                                <button type="submit" class="btn btn-info"></button>
                             </div>
                         </form>
                     </div>
