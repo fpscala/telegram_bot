@@ -48,9 +48,6 @@ class StudentManager @Inject()(val environment: Environment,
 
   private def addStudent(studentData: Student): Future[Int] = {
     studentDao.addStudent(studentData)
-
-  private def addStudent(studentData: Student) = {
-    studentDao.addStudent(studentData)
   }
 
   private def findBirthday(date: Date = new Date()) = {
