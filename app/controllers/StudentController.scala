@@ -28,13 +28,12 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)
 
   def index: Action[AnyContent] = Action {
-    studentPost
+//    studentPost
     Ok(views.html.student(""))
   }
 
   def studentPost = {
-    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>
-      Ok(Json.toJson(s"ajji: $pr"))
+    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 124720112))).mapTo[Int].map { pr =>
     }
   }
 

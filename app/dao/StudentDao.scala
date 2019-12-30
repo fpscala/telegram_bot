@@ -39,9 +39,7 @@ trait StudentComponent {
 trait StudentDao {
   def addStudent(studentData: Student): Future[Int]
 
-  def findBirthday(date: Date): Future[Seq[Student]]
-
-  def getAllStudentBirthDay: Future[Seq[Date]]
+  def getAllStudentBirthDay: Future[Seq[Student]]
 }
 
 @Singleton
@@ -64,15 +62,9 @@ class StudentDaoImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     }
   }
 
-  override def findBirthday(date: Date): Future[Seq[Student]] = {
+  override def getAllStudentBirthDay: Future[Seq[Student]] = {
     db.run {
-      students.filter(_.birthday === date).result
-    }
-  }
-
-  override def getAllStudentBirthDay: Future[Seq[Date]] = {
-    db.run {
-      students.map(_.birthday).result
+      students.result
     }
   }
 }

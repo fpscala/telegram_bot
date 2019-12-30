@@ -51,14 +51,10 @@ class StudentManager @Inject()(val environment: Environment,
   }
 
   private def findBirthday(date: Date = new Date()) = {
-    studentDao.getAllStudentBirthDay.mapTo[Seq[Date]].foreach { dateList =>
-      dateList.foreach { dateSql =>
-        if (convertToStrDate(dateSql) == convertToStrDate(date)) {
-          studentDao.findBirthday(dateSql).mapTo[Seq[Student]].map { list =>
-            list.foreach { student =>
-              new BotInitializer(botUsername, botToken, httpLink).massege(student.first_name)
-            }
-          }
+    studentDao.getAllStudentBirthDay.mapTo[Seq[Student]].foreach { studentList =>
+      studentList.foreach { studentData =>
+        if (convertToStrDate(studentData.birthDay) == convertToStrDate(date)) {
+          new BotInitializer(botUsername, botToken, httpLink).message(studentData)
         }
       }
 
