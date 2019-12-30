@@ -28,7 +28,7 @@ class StudentManager @Inject()(val environment: Environment,
   val httpLink: String = configuration.get[String]("http-link")
 
   override def preStart(): Unit = {
-    actorSystem.scheduler.schedule(initialDelay = 1.seconds, interval = 60.second) {
+    actorSystem.scheduler.schedule(initialDelay = 5.seconds, interval = 1.hour) {
       self ! FindBirthday
     }
   }
