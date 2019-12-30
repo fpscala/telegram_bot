@@ -12,7 +12,7 @@ import play.api.{Configuration, Environment}
 import protocols.StudentProtocol.{AddStudent, FindBirthday, Student}
 import telegrambot.BotInitializer
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.DurationInt
 
 class StudentManager @Inject()(val environment: Environment,
@@ -45,6 +45,9 @@ class StudentManager @Inject()(val environment: Environment,
     case _ => log.info(s"received unknown message")
 
   }
+
+  private def addStudent(studentData: Student): Future[Int] = {
+    studentDao.addStudent(studentData)
 
   private def addStudent(studentData: Student) = {
     studentDao.addStudent(studentData)
