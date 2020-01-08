@@ -12,7 +12,7 @@ import org.webjars.play.WebJarsUtil
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import protocols.StudentProtocol.{AddStudent, Student}
-import views.html._
+import views.html.student._
 
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.ExecutionContext
