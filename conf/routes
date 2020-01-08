@@ -1,5 +1,10 @@
 
+
 GET     /                           controllers.StudentController.index
-GET     /holiday                    controllers.HolidayController.holiday
+GET     /students                   controllers.StudentController.students
+POST    /add-student                controllers.StudentController.addStudent
+
+
+GET     /holiday-congratulation     controllers.HolidayCongratulationController.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-->      /webjars             webjars.Routes
+->      /webjars                    webjars.Routes

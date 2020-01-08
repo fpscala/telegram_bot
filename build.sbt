@@ -47,6 +47,8 @@ val commonDependencies = Seq(
 
 libraryDependencies ++= akkaLibs ++ akkaHttp ++ commonDependencies ++ dbLibs ++ Seq(ws , specs2 % Test , guice ,
   "com.typesafe.scala-logging" % "scala-logging_2.12" % "3.7.2",
+  "org.apache.logging.log4j" % "log4j-api" % "2.12.1",
+  "org.telegram" % "telegrambots" % "4.4.0.1",
   "ch.qos.logback" % "logback-classic" % "1.1.7",
   "ch.qos.logback" % "logback-core" % "1.1.7",
   "org.slf4j" % "log4j-over-slf4j" % "1.7.21",

@@ -16,5 +16,11 @@ object StudentProtocol {
                     )
 
   implicit val studentFormat: OFormat[Student] = Json.format[Student]
+
+  case class FindBirthday(birthday: Date)
+
+  implicit val FindFormat: OFormat[FindBirthday] = Json.format[FindBirthday]
+
+
 }
 
