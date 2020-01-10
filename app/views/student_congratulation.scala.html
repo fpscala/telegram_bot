@@ -1,5 +1,9 @@
 @import org.webjars.play.WebJarsUtil
 @(message: String)(implicit webJarsUtil: WebJarsUtil)
 @main("Welcome to Play", webJarsUtil) {
-    <h1>STUDENT CONGRATULATION PAGE</h1>
+    <script src="@routes.Assets.versioned("javascripts/students.js")" type="text/javascript"></script>
+    <div class="text-center">
+        <h1>STUDENT CONGRATULATION PAGE</h1>
+        <h2 data-bind="text: vm.checkBinding"></h2>
+    </div>
 }

@@ -34,6 +34,10 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     Ok(views.html.student_dashboard(""))
   }
 
+  def studentsAssist: Action[AnyContent] = Action {
+    Ok(views.html.student_congratulation(""))
+  }
+
   def addStudent: Action[JsValue] = Action.async(parse.json){ implicit request => {
     val firstName = (request.body \ "firstName").as[String]
     val lastName = (request.body \ "lastName").as[String]

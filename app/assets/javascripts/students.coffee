@@ -16,6 +16,7 @@ $ ->
     lastName: ''
     birthday: ''
     telegramId: ''
+    checkBinding: "It's connected"
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
