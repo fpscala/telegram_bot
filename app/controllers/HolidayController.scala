@@ -1,4 +1,5 @@
 package controllers
+import akka.actor.ActorRef
 import akka.util.Timeout
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject._
@@ -10,7 +11,6 @@ import scala.concurrent.duration.DurationInt
 
 @Singleton
 class HolidayController @Inject()(val controllerComponents: ControllerComponents,
-
                                   implicit val webJarsUtil: WebJarsUtil
                                  )
                                  (implicit val ec: ExecutionContext)
@@ -19,7 +19,7 @@ class HolidayController @Inject()(val controllerComponents: ControllerComponents
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)
 
   def holiday: Action[AnyContent] = Action {
-    Ok(views.html.holiday("asd"))
+    Ok(views.html.holiday())
   }
 
 
