@@ -22,5 +22,12 @@ class HolidayController @Inject()(val controllerComponents: ControllerComponents
     Ok(views.html.holiday())
   }
 
+  def addHoliday() = Action(parse.json){ implicit request => {
+    val holidayName = (request.body \ "name").as[String]
+    val holidayDate = (request.body \ "date").as[String]
+      Ok("OK")
+    }
+  }
+
 
 }

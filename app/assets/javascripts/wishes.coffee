@@ -5,18 +5,15 @@ $ ->
   Glob = window.Glob || {}
 
   apiUrl =
-    send: '/add-student'
+    send: '/holiday-congratulation'
   #    getTeacher: '/get-teacher'
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
 
 
   vm = ko.mapping.fromJS
-    firstName: ''
-    lastName: ''
-    birthday: ''
-    telegramId: ''
-    checkBinding: "It's connected"
+    wishes: ''
+    holidayId: ''
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
@@ -31,10 +28,8 @@ $ ->
 
   vm.onSubmit = ->
     data =
-      firstName: vm.firstName()
-      lastName: vm.lastName()
-      birthday: vm.birthday()
-      telegramId: parseInt(vm.telegramId())
+      wishes: vm.wishes()
+      holidayId: parseInt(vm.holidayId())
 
     $.ajax
       url: apiUrl.send
@@ -45,10 +40,8 @@ $ ->
     .fail handleError
     .done (response) ->
       toastr.success(response)
-      vm.firstName undefined
-      vm.lastName undefined
-      vm.birthday undefined
-      vm.telegramId undefined
+      vm.wishes undefined
+      vm.holidayId undefined
       $('.close').click() ->
         $(this).parent().hide()
 

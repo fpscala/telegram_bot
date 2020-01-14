@@ -23,10 +23,10 @@ class TelegramManager @Inject()(val environment: Environment,
   val botToken: String = configuration.get[String]("bot-token")
   val httpLink: String = configuration.get[String]("http-link")
 
-  override def preStart() {
-    log.error("Telegram bot started...")
-    self ! RunBot
-  }
+//  override def preStart() {
+//    log.error("Telegram bot started...")
+//    self ! RunBot
+//  }
 
 
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)

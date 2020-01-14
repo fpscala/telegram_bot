@@ -27,11 +27,11 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)
 
   def index: Action[AnyContent] = Action {
-    Ok(views.html.student(""))
+    Ok(views.html.student_dashboard(""))
   }
 
   def students: Action[AnyContent] = Action {
-    Ok(views.html.student(""))
+    Ok(views.html.student_dashboard(""))
   }
 
   def addStudent: Action[JsValue] = Action.async(parse.json){ implicit request => {

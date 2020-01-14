@@ -5,7 +5,7 @@ GET     /students                   controllers.StudentController.students
 POST    /add-student                controllers.StudentController.addStudent
 GET     /holiday                    controllers.HolidayController.holiday
 
-
+GET     /birthday                   controllers.BirthdayController.index
 
 GET     /holiday-congratulation     controllers.HolidayCongratulationController.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
