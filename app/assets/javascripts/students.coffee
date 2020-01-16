@@ -52,8 +52,8 @@ $ ->
       $('.close').click() ->
         $(this).parent().hide()
 
-  getStudents = ->
 
+  getStudents = ->
     $.ajax
       url: apiUrl.getStudents
       type: 'GET'
