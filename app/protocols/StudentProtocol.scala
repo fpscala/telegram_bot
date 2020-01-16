@@ -14,6 +14,7 @@ object StudentProtocol {
                      birthDay: Date,
                      telegram_id: Int
                     )
+  case object GetStudentsList
 
   implicit val studentFormat: OFormat[Student] = Json.format[Student]
 

@@ -40,25 +40,34 @@ trait StudentDao {
   def addStudent(studentData: Student): Future[Int]
 
   def getAllStudentBirthDay: Future[Seq[Student]]
+
+  def getStudents: Future[Seq[Student]]
 }
 
 @Singleton
 class StudentDaoImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvider,
-                               val actorSystem: ActorSystem)
-                              (implicit val ec: ExecutionContext)
-  extends StudentDao
-    with StudentComponent
-    with HasDatabaseConfigProvider[JdbcProfile]
-    with Date2SqlDate
-    with LazyLogging {
+val actorSystem: ActorSystem)
+(implicit val ec: ExecutionContext)
+extends StudentDao
+with StudentComponent
+with HasDatabaseConfigProvider[JdbcProfile]
+with Date2SqlDate
+with LazyLogging {
+
 
   import utils.PostgresDriver.api._
-
   val students = TableQuery[StudentTable]
+
 
   override def addStudent(studentData: Student): Future[Int] = {
     db.run {
       (students returning students.map(_.id)) += studentData
+    }
+  }
+
+  override def getStudents: Future[Seq[Student]] = {
+    db.run {
+      students.sortBy(_.id).result
     }
   }
 

@@ -4,6 +4,7 @@ GET     /                           controllers.StudentController.index
 GET     /students                   controllers.StudentController.students
 POST    /add-student                controllers.StudentController.addStudent
 GET     /holiday                    controllers.HolidayController.holiday
+GET     /get-students               controllers.StudentController.getStudents
 
 GET     /birthday                   controllers.BirthdayController.index
 

@@ -6,7 +6,7 @@ $ ->
 
   apiUrl =
     send: '/add-student'
-  #    getTeacher: '/get-teacher'
+    getStudents: '/get-students'
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
 
@@ -17,9 +17,9 @@ $ ->
     birthday: ''
     telegramId: ''
     checkBinding: "It's connected"
+    listStudents: []
   #    subjectList: []
   #    selectedSubject: ''
-  #    listTeachers: []
   #    selectedDepartment: ''
   #    listDepartment: []
 
@@ -52,18 +52,16 @@ $ ->
       $('.close').click() ->
         $(this).parent().hide()
 
+  getStudents = ->
 
-
-  #
-  #  getTeachers = ->
-  #    $.ajax
-  #      url: apiUrl.getTeacher
-  #      type: 'GET'
-  #      .fail handleError
-  #      .done (response) ->
-  #      vm.listTeachers(response)
-  #
-  #  getTeachers()
+    $.ajax
+      url: apiUrl.getStudents
+      type: 'GET'
+    .fail handleError
+    .done (response) ->
+      console.log("11111111111111111", response)
+      vm.listStudents(response)
+  getStudents()
   #
   #  getDepartment = ->
   #    $.ajax

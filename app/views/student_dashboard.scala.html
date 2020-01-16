@@ -34,12 +34,12 @@
                                 <th><b>Actions</b></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="" data-bind="foreach: vm.listStudents">
                             <tr>
-                                <td>Abduvali</td>
-                                <td>Aminov</td>
-                                <td>10\20\1998</td>
-                                <td>447740377</td>
+                                <td data-bind="text: $data.first_name"></td>
+                                <td data-bind="text: $data.last_name"></td>
+                                <td data-bind="text: $data.birthday"></td>
+                                <td data-bind="text: $data.telegram_id"></td>
                                 <td>
                                     <a href="#editStudentModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="#deleteStudentModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

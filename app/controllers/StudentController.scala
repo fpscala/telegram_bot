@@ -11,7 +11,7 @@ import javax.inject._
 import org.webjars.play.WebJarsUtil
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
-import protocols.StudentProtocol.{AddStudent, Student}
+import protocols.StudentProtocol.{AddStudent, GetStudentsList, Student}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
@@ -25,6 +25,7 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
   extends BaseController with LazyLogging {
 
   implicit val defaultTimeout: Timeout = Timeout(60.seconds)
+  val LoginSessionKey = "login.key"
 
   def index: Action[AnyContent] = Action {
     Ok(views.html.student_dashboard(""))
@@ -32,6 +33,13 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
 
   def students: Action[AnyContent] = Action {
     Ok(views.html.student_dashboard(""))
+  }
+
+  def getStudents: Action[AnyContent] = Action.async { implicit request =>
+    (studentManager ? GetStudentsList).mapTo[Seq[Student]].map {
+      students =>
+          Ok(Json.toJson(students))
+    }
   }
 
   def addStudent: Action[JsValue] = Action.async(parse.json){ implicit request => {
