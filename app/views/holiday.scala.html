@@ -32,9 +32,9 @@
                         <th><b>Settings</b></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody data-bind="foreach: vm.onSubmit">
                     <tr>
-                        <td>1</td>
+                        <td data-bind="$data.holidayName">1</td>
                         <td>Navruz</td>
                         <td>3\21\2020</td>
                         <td>
