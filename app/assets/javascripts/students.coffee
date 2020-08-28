@@ -10,18 +10,28 @@ $ ->
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
 
+  Page =
+    students: 'students'
 
-  vm = ko.mapping.fromJS
+  defaultStudentsData =
     firstName: ''
     lastName: ''
     birthday: ''
     telegramId: ''
+
+  vm = ko.mapping.fromJS
+    students: defaultStudentsData
     checkBinding: "It's connected"
+    page: Glob.page
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
   #    selectedDepartment: ''
   #    listDepartment: []
+
+  vm.selectedPage = (page) ->
+    if (page is Page.students)
+      vm.page(Page.students)
 
   handleError = (error) ->
     if error.status is 500 or (error.status is 400 and error.responseText)
@@ -30,27 +40,36 @@ $ ->
       toastr.error('Something went wrong! Please try again.')
 
   vm.onSubmit = ->
-    data =
-      firstName: vm.firstName()
-      lastName: vm.lastName()
-      birthday: vm.birthday()
-      telegramId: parseInt(vm.telegramId())
-
-    $.ajax
-      url: apiUrl.send
-      type: 'POST'
-      data: JSON.stringify(data)
-      dataType: 'json'
-      contentType: 'application/json'
-    .fail handleError
-    .done (response) ->
-      toastr.success(response)
-      vm.firstName undefined
-      vm.lastName undefined
-      vm.birthday undefined
-      vm.telegramId undefined
-      $('.close').click() ->
-        $(this).parent().hide()
+    toastr.clear()
+    if (!vm.students.firstName)
+      toastr.error("Please enter a first name")
+      return no
+    if (!vm.students.lastName)
+      toastr.error("Please enter a last name")
+      return no
+    if (!vm.students.birthday)
+      toastr.debug("Please enter a birthday date")
+      return no
+    if (!vm.students.telegramId)
+      toastr.error("Please enter a telegram Id")
+      return no
+    else
+      data =
+        firstName: vm.students.firstName()
+        lastName: vm.students.lastName()
+        birthday: vm.students.birthday()
+        telegramId: parseInt(vm.students.telegramId())
+      $.ajax
+        url: apiUrl.send
+        type: 'POST'
+        data: JSON.stringify(data)
+        dataType: 'json'
+        contentType: 'application/json'
+      .fail handleError
+      .done (response) ->
+        toastr.success(response)
+        ko.mapping.fromJS(defaultStudentsData, {}, vm.students)
+        $('#addStudentModal').modal("hide")
 
 
 
