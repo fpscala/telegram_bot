@@ -6,6 +6,7 @@ $ ->
 
   apiUrl =
     send: '/add-student'
+    getStudents: '/get-students'
   #    getTeacher: '/get-teacher'
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
@@ -23,6 +24,7 @@ $ ->
     students: defaultStudentsData
     checkBinding: "It's connected"
     page: Glob.page
+    getStudents: []
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
@@ -38,6 +40,9 @@ $ ->
       toastr.error(error.responseText)
     else
       toastr.error('Something went wrong! Please try again.')
+
+  vm.convertIntToDateTime = (intDate)->
+    moment(intDate).format('MMM DD, YYYY')
 
   vm.onSubmit = ->
     toastr.clear()
@@ -70,6 +75,16 @@ $ ->
         toastr.success(response)
         ko.mapping.fromJS(defaultStudentsData, {}, vm.students)
         $('#addStudentModal').modal("hide")
+        getStudents()
+
+  getStudents = ->
+    $.ajax
+      url: apiUrl.getStudents
+      type: 'GET'
+    .fail handleError
+    .done (response) ->
+      vm.getStudents(response)
+  getStudents()
 
 
 

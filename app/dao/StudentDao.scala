@@ -7,7 +7,7 @@ import com.google.inject.ImplementedBy
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject.{Inject, Singleton}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import protocols.StudentProtocol.Student
+import protocols.StudentProtocol._
 import slick.jdbc.JdbcProfile
 import utils.Date2SqlDate
 
@@ -40,6 +40,8 @@ trait StudentDao {
   def addStudent(studentData: Student): Future[Int]
 
   def getAllStudentBirthDay: Future[Seq[Student]]
+
+  def getStudentsList: Future[Seq[Student]]
 }
 
 @Singleton
@@ -63,6 +65,12 @@ class StudentDaoImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   }
 
   override def getAllStudentBirthDay: Future[Seq[Student]] = {
+    db.run {
+      students.result
+    }
+  }
+
+  override def getStudentsList: Future[Seq[Student]] = {
     db.run {
       students.result
     }

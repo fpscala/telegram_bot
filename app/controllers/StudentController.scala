@@ -11,10 +11,10 @@ import javax.inject._
 import org.webjars.play.WebJarsUtil
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
-import protocols.StudentProtocol.{AddStudent, Student}
+import protocols.StudentProtocol._
 import views.html.index
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.DurationInt
 
 @Singleton
@@ -42,7 +42,18 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     }
   }
   }
-//
+
+  def getStudents: Action[AnyContent] = Action.async {
+    (studentManager ? GetStudents).mapTo[Seq[Student]].map { s =>
+      Ok(Json.toJson(s.sortBy(_.id)))
+    }.recover {
+      case err =>
+        logger.error(s"error: $err")
+        BadRequest
+    }
+  }
+
+
 //  def studentPost = {
 //    logger.warn(s"Keldi.........")
 //    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>
