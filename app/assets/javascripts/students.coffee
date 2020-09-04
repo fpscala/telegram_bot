@@ -8,12 +8,14 @@ $ ->
     send: '/add-student'
     getStudents: '/get-students'
     updateStudents: '/update-students'
+    deleteStudents: '/delete-students'
   #    getTeacher: '/get-teacher'
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
 
   $modalEditStudent = $('#editStudents')
   $modalAddStudent = $('#addStudentModal')
+  $modalDeleteStudent = $('#deletedStudents')
 
   Page =
     students: 'students'
@@ -123,6 +125,24 @@ $ ->
       toastr.success(response)
       getStudents()
 
+  vm.askDelete = (id) -> ->
+    vm.selected.id(id)
+    $modalDeleteStudent.modal("show")
+
+  vm.deleteStudents = ->
+    data =
+      id: vm.selected.id()
+    $.ajax
+      url: apiUrl.deleteStudents
+      type: 'DELETE'
+      data: JSON.stringify(data)
+      dataType: 'json'
+      contentType: 'application/json'
+    .fail handleError
+    .done (response) ->
+      toastr.success(response)
+      $modalDeleteStudent.modal("hide")
+      getStudents()
 
   #
   #  getTeachers = ->

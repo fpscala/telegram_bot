@@ -68,6 +68,17 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     }
   }
 
+  def deleteStudents = Action.async(parse.json) { implicit request =>
+    val id = (request.body \ "id").as[Int]
+    (studentManager ? DeleteStudents(id)).mapTo[Int].map { i =>
+      if (i != 0) {
+        Ok(Json.toJson(id + " is deleted"))
+      }
+      else {
+        Ok("is not found")
+      }
+    }
+  }
 //  def studentPost = {
 //    logger.warn(s"Keldi.........")
 //    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>

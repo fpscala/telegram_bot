@@ -12,6 +12,8 @@ object StudentProtocol {
 
   case class UpdateStudents(update: Student)
 
+  case class DeleteStudents(id: Int)
+
   case class Student(id: Option[Int] = None,
                      first_name: String,
                      last_name: String,

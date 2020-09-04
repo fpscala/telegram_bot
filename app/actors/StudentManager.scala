@@ -45,6 +45,9 @@ class StudentManager @Inject()(val environment: Environment,
     case GetStudents =>
       getStudentsList.pipeTo(sender())
 
+    case DeleteStudents(id) =>
+      deleteStudentList(id).pipeTo(sender())
+
     case UpdateStudents(data) =>
       updateStudentsList(data).pipeTo(sender())
 
@@ -59,6 +62,11 @@ class StudentManager @Inject()(val environment: Environment,
   private def getStudentsList: Future[Seq[Student]] = {
     studentDao.getStudentsList
   }
+
+  private def deleteStudentList(id: Int): Future[Int] = {
+    studentDao.deleteStudents(id)
+  }
+
   private def findBirthday(date: Date = new Date()) = {
     studentDao.getAllStudentBirthDay.mapTo[Seq[Student]].foreach { studentList =>
       studentList.foreach { studentData =>
