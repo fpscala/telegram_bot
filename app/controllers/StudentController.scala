@@ -53,6 +53,20 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     }
   }
 
+  def updateStudents = Action.async(parse.json) { implicit request =>
+    val id = (request.body \ "id").as[Int]
+    val firstName = (request.body \ "firstName").as[String]
+    val lastName = (request.body \ "lastName").as[String]
+    val birthday = (request.body \ "birthday").as[Date]
+    val telegramId = (request.body \ "telegramId").as[Int]
+    (studentManager ? UpdateStudents(Student(Some(id), firstName, lastName, birthday, telegramId))).mapTo[Int].map { i =>
+      if (i != 0) {
+        Ok(Json.toJson(id + " is updates student info"))
+      } else {
+        Ok("is not found student info")
+      }
+    }
+  }
 
 //  def studentPost = {
 //    logger.warn(s"Keldi.........")

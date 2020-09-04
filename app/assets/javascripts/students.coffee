@@ -7,9 +7,13 @@ $ ->
   apiUrl =
     send: '/add-student'
     getStudents: '/get-students'
+    updateStudents: '/update-students'
   #    getTeacher: '/get-teacher'
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
+
+  $modalEditStudent = $('#editStudents')
+  $modalAddStudent = $('#addStudentModal')
 
   Page =
     students: 'students'
@@ -25,6 +29,13 @@ $ ->
     checkBinding: "It's connected"
     page: Glob.page
     getStudents: []
+    id: 0
+    selected:
+      id: ''
+      firstName: ''
+      lastName: ''
+      birthday: ''
+      telegramId: ''
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
@@ -74,7 +85,7 @@ $ ->
       .done (response) ->
         toastr.success(response)
         ko.mapping.fromJS(defaultStudentsData, {}, vm.students)
-        $('#addStudentModal').modal("hide")
+        $modalAddStudent.modal("hide")
         getStudents()
 
   getStudents = ->
@@ -86,6 +97,31 @@ $ ->
       vm.getStudents(response)
   getStudents()
 
+  vm.openEditFormStudents = (data) -> ->
+    vm.selected.id(data.id)
+    vm.selected.firstName(data.first_name)
+    vm.selected.lastName(data.last_name)
+    vm.selected.birthday(data.birthDay)
+    vm.selected.telegramId(data.telegram_id)
+
+  vm.updateStudents =  ->
+    data =
+      id: vm.selected.id()
+      firstName: vm.selected.firstName()
+      lastName: vm.selected.lastName()
+      birthday: vm.selected.birthday()
+      telegramId: vm.selected.telegramId()
+    $.ajax
+      url: apiUrl.updateStudents
+      type: 'POST'
+      data: JSON.stringify(data)
+      dataType: 'json'
+      contentType: 'application/json'
+    .fail handleError
+    .done (response) ->
+      $modalEditStudent.modal("hide")
+      toastr.success(response)
+      getStudents()
 
 
   #

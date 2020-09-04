@@ -8,7 +8,8 @@
                         <h2><b>Students</b> dashboard</h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="#addStudentModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>
+                        <a href="#addStudentModal" class="btn btn-success" data-toggle="modal">
+                            <i class="material-icons">&#xE147;</i> <span>
                             Add New Student</span></a>
                     </div>
                 </div>
@@ -30,8 +31,8 @@
                         <td data-bind="text: $root.vm.convertIntToDateTime($data.birthDay)"></td>
                         <td data-bind="text: $data.telegram_id"></td>
                         <td>
-                            <a href="#editStudentModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteStudentModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="" data-target="#editStudents" data-bind="click: $root.vm.openEditFormStudents($data)" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="" data-target="#deletedStudents" data-bind="click:" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -86,7 +87,7 @@
         </div>
     </div>
         <!-- Edit Modal HTML -->
-    <div id="editStudentModal" class="modal fade">
+    <div id="editStudents" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>
@@ -97,31 +98,31 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" class="form-control" data-bind="value: vm.selected.firstName">
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" class="form-control" data-bind="value: vm.selected.lastName">
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="date" class="form-control" required>
+                            <input type="date" class="form-control" data-bind="value: vm.selected.birthday">
                         </div>
                         <div class="form-group">
                             <label>Telegram ID</label>
-                            <input type="number" class="form-control" required>
+                            <input type="number" class="form-control" data-bind="value: vm.selected.telegramId">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <button type="submit" class="btn btn-info"></button>
+                        <button type="submit" class="btn btn-info" data-bind="click: vm.updateStudents">Save</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
         <!-- Delete Modal HTML -->
-    <div id="deleteStudentModal" class="modal fade">
+    <div id="deletedStudents" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>

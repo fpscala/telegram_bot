@@ -42,6 +42,8 @@ trait StudentDao {
   def getAllStudentBirthDay: Future[Seq[Student]]
 
   def getStudentsList: Future[Seq[Student]]
+
+  def updateStudents(data: Student): Future[Int]
 }
 
 @Singleton
@@ -73,6 +75,12 @@ class StudentDaoImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   override def getStudentsList: Future[Seq[Student]] = {
     db.run {
       students.result
+    }
+  }
+
+  override def updateStudents(data: Student): Future[Int] = {
+    db.run {
+      students.filter(_.id === data.id).update(data)
     }
   }
 }

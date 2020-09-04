@@ -45,6 +45,9 @@ class StudentManager @Inject()(val environment: Environment,
     case GetStudents =>
       getStudentsList.pipeTo(sender())
 
+    case UpdateStudents(data) =>
+      updateStudentsList(data).pipeTo(sender())
+
     case _ => log.info(s"received unknown message")
 
   }
@@ -72,4 +75,7 @@ class StudentManager @Inject()(val environment: Environment,
     new SimpleDateFormat("MM-dd").format(date)
   }
 
+  private def updateStudentsList(data: Student): Future[Int] = {
+    studentDao.updateStudents(data)
+  }
 }
