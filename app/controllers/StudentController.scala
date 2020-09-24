@@ -38,7 +38,7 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     val birthday = (request.body \ "birthday").as[Date]
     val telegramId = (request.body \ "telegramId").as[Int]
     (studentManager ? AddStudent(Student(None, firstName, lastName, birthday, telegramId))).mapTo[Int].map { id =>
-      Ok(Json.toJson(id))
+      Ok(Json.toJson(""))
     }
   }
   }
@@ -72,17 +72,11 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
     val id = (request.body \ "id").as[Int]
     (studentManager ? DeleteStudents(id)).mapTo[Int].map { i =>
       if (i != 0) {
-        Ok(Json.toJson(id + " is deleted"))
+        Ok(Json.toJson(""))
       }
       else {
         Ok("is not found")
       }
     }
   }
-//  def studentPost = {
-//    logger.warn(s"Keldi.........")
-//    (studentManager ? AddStudent(Student(None, "Maftunbek", "Raxmatov", new Date, 123546))).mapTo[Int].map { pr =>
-//      Ok(Json.toJson(s"ajji: $pr"))
-//    }
-//  }
 }

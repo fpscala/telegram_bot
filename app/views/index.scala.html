@@ -3,6 +3,7 @@
 @import views.html.navbar
 @import views.html.student_dashboard
 @import views.html.main
+@import views.html.holiday
 @main("Congratulation", webJarsUtil) {
     <script>
             var Glob = {
@@ -15,6 +16,7 @@
         <div class="container">
             @navbar()
             @student_dashboard()
+            @holiday()
         </div>
     </body>
 }

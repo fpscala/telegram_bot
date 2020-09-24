@@ -19,6 +19,7 @@ $ ->
 
   Page =
     students: 'students'
+    holidays: 'holidays'
 
   defaultStudentsData =
     firstName: ''
@@ -47,6 +48,8 @@ $ ->
   vm.selectedPage = (page) ->
     if (page is Page.students)
       vm.page(Page.students)
+    else
+      vm.page(Page.holidays)
 
   handleError = (error) ->
     if error.status is 500 or (error.status is 400 and error.responseText)
@@ -59,16 +62,16 @@ $ ->
 
   vm.onSubmit = ->
     toastr.clear()
-    if (!vm.students.firstName)
+    if (!vm.students.firstName())
       toastr.error("Please enter a first name")
       return no
-    if (!vm.students.lastName)
+    else if (!vm.students.lastName())
       toastr.error("Please enter a last name")
       return no
-    if (!vm.students.birthday)
-      toastr.debug("Please enter a birthday date")
+    else if !vm.students.birthday()
+      toastr.error("Please enter a birthday date")
       return no
-    if (!vm.students.telegramId)
+    else if (!vm.students.telegramId())
       toastr.error("Please enter a telegram Id")
       return no
     else
