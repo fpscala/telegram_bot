@@ -13,7 +13,7 @@ resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
       
 resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
       
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.11"
 
 val akkaLibs = Seq(
   "com.typesafe.akka" %% "akka-contrib" % akkaV,
@@ -61,5 +61,5 @@ libraryDependencies ++= akkaLibs ++ akkaHttp ++ commonDependencies ++ dbLibs ++ 
   "org.webjars" % "toastr" % "2.1.2",
   "net.ruippeixotog" %% "scala-scraper" % "2.1.0",
   "org.webjars" % "bootstrap" % "4.3.1",
-  "org.webjars" % "momentjs" % "2.8.1"
+  "org.webjars" % "momentjs" % "2.24.0"
 )

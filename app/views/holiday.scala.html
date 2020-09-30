@@ -1,15 +1,5 @@
-@import org.webjars.play.WebJarsUtil
-@()(implicit webJarsUtil: WebJarsUtil)
-@main("Welcome to Play", webJarsUtil) {
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/holiday.css")">
-    <script src="@routes.Assets.versioned("assets.javascript/holiday.js")"></script>
-
+@()
+<div data-bind="visible: vm.page() == 'holidays'">
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
@@ -26,15 +16,15 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th><b>Id</b></th>
+                        <th><b>#</b></th>
                         <th><b>Holiday Name</b></th>
                         <th><b>Holiday Date</b></th>
-                        <th><b>Settings</b></th>
+                        <th><b>Action</b></th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: vm.onSubmit">
+                <tbody>
                     <tr>
-                        <td data-bind="$data.holidayName">1</td>
+                        <td>1</td>
                         <td>Navruz</td>
                         <td>3\21\2020</td>
                         <td>
@@ -70,14 +60,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Holiday Name</label>
-                            <input type="text" class="form-control" data-bind="value: vm.holidayName" required>
+                            <input type="text" class="form-control" data-bind="value: vm.holidayName" >
                         </div>
                         <div class="form-group">
                             <label>Holiday Date</label>
-                            <input type="date" class="form-control" data-bind="value: vm.holidayDate" required>
+                            <input type="date" class="form-control" data-bind="value: vm.holidayDate" >
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <button type="submit" class="btn btn-success" data-bind="click: vm.onSubmit">Submit</button>
                     </div>
                 </form>
@@ -132,4 +123,4 @@
             </div>
         </div>
     </div>
-}
+</div>

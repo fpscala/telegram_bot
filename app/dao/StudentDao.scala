@@ -7,7 +7,7 @@ import com.google.inject.ImplementedBy
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject.{Inject, Singleton}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import protocols.StudentProtocol.Student
+import protocols.StudentProtocol._
 import slick.jdbc.JdbcProfile
 import utils.Date2SqlDate
 
@@ -22,13 +22,13 @@ trait StudentComponent {
   class StudentTable(tag: Tag) extends Table[Student](tag, "Student") with Date2SqlDate {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
-    def firstName = column[String]("firstName")
+    def firstName = column[String]("first_name")
 
-    def lastName = column[String]("lastName")
+    def lastName = column[String]("last_name")
 
     def birthday = column[Date]("birthday")
 
-    def telegramId = column[Int]("telegramId")
+    def telegramId = column[Int]("telegram_id")
 
     def * = (id.?, firstName, lastName, birthday, telegramId) <> (Student.tupled, Student.unapply _)
   }
@@ -40,6 +40,12 @@ trait StudentDao {
   def addStudent(studentData: Student): Future[Int]
 
   def getAllStudentBirthDay: Future[Seq[Student]]
+
+  def getStudentsList: Future[Seq[Student]]
+
+  def updateStudents(data: Student): Future[Int]
+
+  def deleteStudents(id: Int): Future[Int]
 }
 
 @Singleton
@@ -65,6 +71,24 @@ class StudentDaoImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   override def getAllStudentBirthDay: Future[Seq[Student]] = {
     db.run {
       students.result
+    }
+  }
+
+  override def getStudentsList: Future[Seq[Student]] = {
+    db.run {
+      students.result
+    }
+  }
+
+  override def updateStudents(data: Student): Future[Int] = {
+    db.run {
+      students.filter(_.id === data.id).update(data)
+    }
+  }
+
+  override def deleteStudents(id: Int): Future[Int] = {
+    db.run{
+      students.filter(_.id === id).delete
     }
   }
 }

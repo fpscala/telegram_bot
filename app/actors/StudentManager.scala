@@ -9,7 +9,7 @@ import akka.util.Timeout
 import dao.StudentDao
 import javax.inject.Inject
 import play.api.{Configuration, Environment}
-import protocols.StudentProtocol.{AddStudent, FindBirthday, Student}
+import protocols.StudentProtocol._
 import telegrambot.BotInitializer
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -42,12 +42,29 @@ class StudentManager @Inject()(val environment: Environment,
     case FindBirthday =>
       findBirthday()
 
+    case GetStudents =>
+      getStudentsList.pipeTo(sender())
+
+    case DeleteStudents(id) =>
+      deleteStudentList(id).pipeTo(sender())
+
+    case UpdateStudents(data) =>
+      updateStudentsList(data).pipeTo(sender())
+
     case _ => log.info(s"received unknown message")
 
   }
 
   private def addStudent(studentData: Student): Future[Int] = {
     studentDao.addStudent(studentData)
+  }
+
+  private def getStudentsList: Future[Seq[Student]] = {
+    studentDao.getStudentsList
+  }
+
+  private def deleteStudentList(id: Int): Future[Int] = {
+    studentDao.deleteStudents(id)
   }
 
   private def findBirthday(date: Date = new Date()) = {
@@ -66,4 +83,7 @@ class StudentManager @Inject()(val environment: Environment,
     new SimpleDateFormat("MM-dd").format(date)
   }
 
+  private def updateStudentsList(data: Student): Future[Int] = {
+    studentDao.updateStudents(data)
+  }
 }

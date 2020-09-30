@@ -6,7 +6,13 @@ import play.api.libs.json.{Json, OFormat}
 
 object StudentProtocol {
 
+  case object GetStudents
+
   case class AddStudent(student: Student)
+
+  case class UpdateStudents(update: Student)
+
+  case class DeleteStudents(id: Int)
 
   case class Student(id: Option[Int] = None,
                      first_name: String,
