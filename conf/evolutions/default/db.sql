@@ -1,10 +1,10 @@
 # --- !Ups
 CREATE TABLE "Student" (
   "id" SERIAL NOT NULL PRIMARY KEY,
-  "firstName" VARCHAR NOT NULL,
-  "lastName" VARCHAR NOT NULL,
+  "first_name" VARCHAR NOT NULL,
+  "last_name" VARCHAR NOT NULL,
   "birthday" DATE NOT NULL,
-  "telegramId" INTEGER NOT NULL
+  "telegram_id" INTEGER NOT NULL
 );
 
 CREATE TABLE "Holiday" (

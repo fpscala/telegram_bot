@@ -22,13 +22,13 @@ trait StudentComponent {
   class StudentTable(tag: Tag) extends Table[Student](tag, "Student") with Date2SqlDate {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
-    def firstName = column[String]("firstName")
+    def firstName = column[String]("first_name")
 
-    def lastName = column[String]("lastName")
+    def lastName = column[String]("last_name")
 
     def birthday = column[Date]("birthday")
 
-    def telegramId = column[Int]("telegramId")
+    def telegramId = column[Int]("telegram_id")
 
     def * = (id.?, firstName, lastName, birthday, telegramId) <> (Student.tupled, Student.unapply _)
   }
