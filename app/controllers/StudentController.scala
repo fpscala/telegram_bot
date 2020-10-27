@@ -12,6 +12,7 @@ import org.webjars.play.WebJarsUtil
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import protocols.StudentProtocol._
+import protocols.HolidayProtocol._
 import views.html.index
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -77,6 +78,14 @@ class StudentController @Inject()(val controllerComponents: ControllerComponents
       else {
         Ok("is not found")
       }
+    }
+  }
+
+  def addHoliday: Action[JsValue] = Action.async(parse.json) { implicit request =>
+    val holidayName = (request.body \ "holidayName").as[String]
+    val holidayDate = (request.body \ "holidayDate").as[Date]
+    (studentManager ? AddHoliday(Holiday(None, holidayName, holidayDate))).mapTo[Int].map { _ =>
+      Ok(Json.toJson("OK"))
     }
   }
 }

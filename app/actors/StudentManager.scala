@@ -6,10 +6,11 @@ import java.util.Date
 import akka.actor._
 import akka.pattern.pipe
 import akka.util.Timeout
-import dao.StudentDao
+import dao.{HolidayDao, StudentDao}
 import javax.inject.Inject
 import play.api.{Configuration, Environment}
 import protocols.StudentProtocol._
+import protocols.HolidayProtocol._
 import telegrambot.BotInitializer
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -18,6 +19,7 @@ import scala.concurrent.duration.DurationInt
 class StudentManager @Inject()(val environment: Environment,
                                val configuration: Configuration,
                                studentDao: StudentDao,
+                               holidayDao: HolidayDao,
                                implicit val actorSystem: ActorSystem
                               )
                               (implicit val ec: ExecutionContext)
@@ -50,6 +52,9 @@ class StudentManager @Inject()(val environment: Environment,
 
     case UpdateStudents(data) =>
       updateStudentsList(data).pipeTo(sender())
+
+    case AddHoliday(holiday) =>
+      addHoliday(holiday).pipeTo(sender())
 
     case _ => log.info(s"received unknown message")
 
@@ -85,5 +90,9 @@ class StudentManager @Inject()(val environment: Environment,
 
   private def updateStudentsList(data: Student): Future[Int] = {
     studentDao.updateStudents(data)
+  }
+
+  private def addHoliday(holiday: Holiday): Future[Int] = {
+    holidayDao.addHoliday(holiday)
   }
 }

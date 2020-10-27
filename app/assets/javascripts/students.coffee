@@ -9,6 +9,7 @@ $ ->
     getStudents: '/get-students'
     updateStudents: '/update-students'
     deleteStudents: '/delete-students'
+    addHoliday: '/add-holiday'
   #    getTeacher: '/get-teacher'
   #    getDepartment: '/get-department'
   #    getSubject: '/get-subjects'
@@ -27,6 +28,10 @@ $ ->
     birthday: ''
     telegramId: ''
 
+  defaultHolidayData =
+    holidayName: ''
+    holidayDate: ''
+
   vm = ko.mapping.fromJS
     students: defaultStudentsData
     checkBinding: "It's connected"
@@ -39,6 +44,7 @@ $ ->
       lastName: ''
       birthday: ''
       telegramId: ''
+    holidays: defaultHolidayData
   #    subjectList: []
   #    selectedSubject: ''
   #    listTeachers: []
@@ -147,35 +153,29 @@ $ ->
       $modalDeleteStudent.modal("hide")
       getStudents()
 
-  #
-  #  getTeachers = ->
-  #    $.ajax
-  #      url: apiUrl.getTeacher
-  #      type: 'GET'
-  #      .fail handleError
-  #      .done (response) ->
-  #      vm.listTeachers(response)
-  #
-  #  getTeachers()
-  #
-  #  getDepartment = ->
-  #    $.ajax
-  #      url: apiUrl.getDepartment
-  #      type: 'GET'
-  #      .fail handleError
-  #      .done (response) ->
-  #      vm.listDepartment(response)
-  #
-  #  getDepartment()
-  #
-  #  getSubjectList = ->
-  #    $.ajax
-  #      url: apiUrl.getSubject
-  #      type: 'GET'
-  #      .fail handleError
-  #      .done (response) ->
-  #      vm.subjectList(response)
-  #
-  #  getSubjectList()
+#  Start Holiday
+
+  $modalAddHoliday= $('#addHolidayModal')
+  $modalEditStudent = $('#editStudents')
+  $modalDeleteStudent = $('#deletedStudents')
+
+  vm.addHoliday = ->
+    toastr.clear()
+    if (!vm.holidays.holidayName())
+      toastr.error("Please enter a holiday name")
+      return no
+    else if (!vm.holidays.holidayDate())
+      toastr.error("Please enter a holiday date")
+      return no
+    else
+      data =
+        holidayName: vm.holidays.holidayName()
+        holidayDate: vm.holidays.holidayDate()
+      $.post(apiUrl.addHoliday, JSON.stringify(data))
+      .fail handleError
+      .done (response) ->
+        toastr.success(response)
+        ko.mapping.fromJS(defaultStudentsData, {}, vm.students)
+        $modalAddHoliday.modal("hide")
 
   ko.applyBindings {vm}

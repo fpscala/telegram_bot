@@ -60,16 +60,16 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Holiday Name</label>
-                            <input type="text" class="form-control" data-bind="value: vm.holidayName" >
+                            <input type="text" class="form-control" data-bind="value: vm.holidays.holidayName" >
                         </div>
                         <div class="form-group">
                             <label>Holiday Date</label>
-                            <input type="date" class="form-control" data-bind="value: vm.holidayDate" >
+                            <input type="date" class="form-control" data-bind="value: vm.holidays.holidayDate" >
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <button type="submit" class="btn btn-success" data-bind="click: vm.onSubmit">Submit</button>
+                        <button type="submit" class="btn btn-success" data-bind="click: vm.addHoliday">Submit</button>
                     </div>
                 </form>
             </div>

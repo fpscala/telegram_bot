@@ -6,6 +6,7 @@ GET     /get-students               controllers.StudentController.getStudents
 GET     /holiday                    controllers.HolidayController.holiday
 POST    /update-students            controllers.StudentController.updateStudents
 DELETE  /delete-students            controllers.StudentController.deleteStudents
+POST    /add-holiday                controllers.StudentController.addHoliday
 
 GET     /birthday                   controllers.BirthdayController.index
 
